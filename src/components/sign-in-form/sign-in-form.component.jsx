@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import FormInput from "../form-input/form-input.component";
 import Button from '../button/button.component';
-
 import {
   signInWithGooglePopup,
-  createUserInDatabase,
   signInAuthUserWithEmailAndPassword
 } from '../../utils/firebase/firebase.util';
 
@@ -19,21 +17,24 @@ const SignInForm = () => {
   const [ formFields, setFormFields ] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  // Update form fields state as the user types into
+  // each of the fields.
   const handleChange = ( evt ) => {
     const { name, value } = evt.target;
     setFormFields({ ...formFields, [ name ]: value });
   };
 
+  // resets form fields on completion of sign-in
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  // Handles regular sign-in
   const handleSubmit = async ( evt ) => {
     evt.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log( response );
+      await signInAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
     } catch ( err ) {
       switch ( err.code ) {
@@ -49,9 +50,9 @@ const SignInForm = () => {
     }
   };
 
+  // Handles google social sign-in
   const signInWithGoogle = async () => {
       const { user } = await signInWithGooglePopup();
-      await createUserInDatabase( user );
   };
 
   return (

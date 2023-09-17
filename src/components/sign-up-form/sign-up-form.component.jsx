@@ -4,7 +4,6 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserInDatabase
 } from "../../utils/firebase/firebase.util";
-
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
@@ -19,18 +18,24 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
 
+  // form field state values
   const [ formFields, setFormFields ] = useState( defaultFormFields );
   const { displayName, email, password, confirmPassword } = formFields;
 
+
+  // Handles change in the content of the formfields as the user
+  // types.
   const handleChange = ( evt ) => {
     const { name, value } = evt.target;
     setFormFields( { ...formFields, [ name ]: value } );
   };
 
+  // reset all formfields
   const resetFormFields = () => {
-    setFormFields(defaultFormFields);
+    setFormFields( defaultFormFields );
   }
 
+  // Handles the 'submit' of user data on sign-up
   const handleSubmit = async ( evt ) => {
     evt.preventDefault();
 
@@ -41,10 +46,12 @@ const SignUpForm = () => {
         await createUserInDatabase( user, { displayName } );
         resetFormFields();
       } catch ( err ) {
-        if ( err.code === 'auth/email-already-in-use' ) {
-          alert('Cannot create a new user with existing email');
-        } else {
-          console.log('An error occurred: \n', err.message);
+        switch( err.code ) {
+          case 'auth/email-already-in-use':
+            alert('Sorry, but this email is already in use');
+            break;
+          default:
+            console.log('An unexpected error occurred: \n', err.message);
         }
       }
     } else {
