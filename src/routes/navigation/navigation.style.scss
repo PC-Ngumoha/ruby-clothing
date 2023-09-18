@@ -63,6 +63,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .nav-link {
+        font-weight: 500;
+      }
     }
   }
 }
