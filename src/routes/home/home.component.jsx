@@ -6,42 +6,42 @@ const Home = () => {
   const categories = [
   {
     "id": 1,
-    "title": "hats",
+    "title": "Hats",
     "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
   },
   {
     "id": 2,
-    "title": "jackets",
+    "title": "Jackets",
     "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png"
   },
   {
     "id": 3,
-    "title": "sneakers",
+    "title": "Sneakers",
     "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
   },
   {
     "id": 4,
-    "title": "womens (casual)",
+    "title": "Women's (casual)",
     "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
   },
   {
     "id": 5,
-    "title": "mens (casual)",
+    "title": "Men's (casual)",
     "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
   },
   {
     "id": 6,
-    "title": "womens (african)",
+    "title": "Women's (african)",
     "imageUrl": "https://i.ibb.co/VHmjXJR/pexels-hamid-tajik-10919896.jpg"
   },
   {
     "id": 7,
-    "title": "mens (african)",
+    "title": "Men's (african)",
     "imageUrl": "https://i.ibb.co/v1Jfvyg/nigerian-man.jpg"
   },
   {
     "id": 8,
-    "title": "bags",
+    "title": "Bags",
     "imageUrl": "https://i.ibb.co/5FYRhjL/bags.jpg"
   }
 ];
