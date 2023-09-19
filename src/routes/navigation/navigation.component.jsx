@@ -5,7 +5,7 @@ import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { UserContext } from "../../contexts/user.context";
-import { DropdownDisplayContext } from "../../contexts/cart-dropdown.context";
+import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.util";
 
 // Importing the SVG logo
@@ -16,7 +16,7 @@ import './navigation.style.scss';
 
 const Navigation = () => {
   const { currentUser } = useContext( UserContext );
-  const { displayed } = useContext(DropdownDisplayContext);
+  const { displayed } = useContext(CartContext);
   // console.log( currentUser );
   
   return (
