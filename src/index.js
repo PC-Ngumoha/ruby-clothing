@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/user.context';
 import { ProductProvider } from './contexts/product.context';
-import { DropdownDisplayProvider } from './contexts/cart-dropdown.context';
+import { CartProvider } from './contexts/cart.context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -17,9 +17,9 @@ root.render(
     <BrowserRouter>
         <UserProvider>
           <ProductProvider>
-            <DropdownDisplayProvider>
+            <CartProvider>
               <App />
-            </DropdownDisplayProvider>
+            </CartProvider>
           </ProductProvider>
         </UserProvider>
     </BrowserRouter>
