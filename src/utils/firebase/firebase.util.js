@@ -21,7 +21,11 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -35,23 +39,63 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
+// Setup for google auth functionality.
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
 
+// Sets up authentication tracking
 export const auth = getAuth();
 
+// Helper function
+// Enables google sign-in using the popup method
 export const signInWithGooglePopup = () => 
   signInWithPopup(auth, googleProvider);
 
+// Helper function
+// Enables google sign-in using the redirect method
 export const signInWithGoogleRedirect = () => 
   signInWithRedirect(auth, googleProvider);
 
 // Initialize db
 const db = getFirestore();
 
+// Helper function.
+// Helps us to create a collection on firestore and add documents to it.
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach(object => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  // Pushes it to firebase
+  await batch.commit();
+  console.log('Upload Done');
+};
+
+// Helper function
+// retrieves the objects in the 'categories' collection
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[ title.toLowerCase() ] = items;
+    return acc;
+  }, {});
+
+  return categoryMap;
+};
+
+// Helper function
+// Helps create a new user in firestore on authentication
 export const createUserInDatabase = async ( userAuth, extraInfo ) => {
   if ( !userAuth ) return;
 
@@ -80,16 +124,24 @@ export const createUserInDatabase = async ( userAuth, extraInfo ) => {
   return userRef;
 };
 
+// Helper function
+// Helps us create a new authenticated user with email and password.
 export const createAuthUserWithEmailAndPassword = async ( email, password ) => {
   if ( !email || !password ) return;
   return await createUserWithEmailAndPassword( auth, email, password );
 }
 
+// Helper function
+// Helps us sign in an already authenticated user using email and password.
 export const signInAuthUserWithEmailAndPassword = async ( email, password ) => {
   if ( !email || !password ) return;
   return await signInWithEmailAndPassword( auth, email, password );
 }
 
+// Helper function
+// Signs out already authenticated user
 export const signOutUser = async () => await signOut(auth);
 
+// Stream listener
+// Listens for changes in the authentication state of the user.
 export const onAuthStateChangedListener = ( cb ) => onAuthStateChanged( auth, cb );

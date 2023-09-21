@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import CategoryMenu from "../../components/category-menu/category-menu.component";
+import Directory from "../../components/directory/directory.component";
 
 const Home = () => {
 
@@ -21,22 +21,22 @@ const Home = () => {
   },
   {
     "id": 4,
-    "title": "Women's (casual)",
+    "title": "Womens",
     "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
   },
   {
     "id": 5,
-    "title": "Men's (casual)",
+    "title": "Mens",
     "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
   },
   {
     "id": 6,
-    "title": "Women's (african)",
+    "title": "Womens-African",
     "imageUrl": "https://i.ibb.co/VHmjXJR/pexels-hamid-tajik-10919896.jpg"
   },
   {
     "id": 7,
-    "title": "Men's (african)",
+    "title": "Mens-African",
     "imageUrl": "https://i.ibb.co/v1Jfvyg/nigerian-man.jpg"
   },
   {
@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <div>
       <Outlet />
-      <CategoryMenu categories={categories} />
+      <Directory categories={categories} />
     </div>
   );
 }
