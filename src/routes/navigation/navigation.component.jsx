@@ -12,7 +12,12 @@ import { signOutUser } from "../../utils/firebase/firebase.util";
 import { ReactComponent as RubyLogo } from '../../assets/ruby-clothing.svg';
 
 // Import CSS
-import './navigation.style.scss';
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLink,
+  NavLinks
+} from './navigation.style';
 
 const Navigation = () => {
   const { currentUser } = useContext( UserContext );
@@ -21,37 +26,33 @@ const Navigation = () => {
   
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/" >
+      <NavigationContainer>
+        <NavLink to="/" >
           <RubyLogo className="logo" />
-
-          <a className="btn-toggle">
-            &#9776;
-          </a>
-        </Link>
-        <div className= "nav-links-container" >
-          <Link className="nav-link" to="/shop" >
+        </NavLink>
+        <NavLinks >
+          <NavLink to="/shop" >
             SHOP
-          </Link>
+          </NavLink>
           {
             currentUser ? 
             (
-              <span className="nav-link" onClick={ signOutUser }>
+              <NavLink as="span" onClick={ signOutUser }>
                 SIGN OUT
-              </span>
+              </NavLink>
             ) : 
             (
-              <Link className="nav-link" to="/auth" >
+              <NavLink to="/auth" >
                 SIGN IN
-              </Link>
+              </NavLink>
             )
           }
           <CartIcon />
-        </div>
+        </NavLinks>
         {
           displayed && <CartDropdown />
         }
-      </div>
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );
