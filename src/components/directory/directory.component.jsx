@@ -51,7 +51,7 @@ const Directory = () => {
       "id": 8,
       "title": "Bags",
       "imageUrl": "https://i.ibb.co/5FYRhjL/bags.jpg",
-      "route": 'shop/'
+      "route": 'shop/bags'
     }
   ];
 
