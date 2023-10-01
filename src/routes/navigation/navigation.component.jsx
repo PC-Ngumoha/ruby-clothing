@@ -1,13 +1,13 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
-import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.util";
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectCartDisplayed } from "../../store/cart/cart.selector";
 
 // Importing the SVG logo
 import { ReactComponent as RubyLogo } from '../../assets/ruby-clothing.svg';
@@ -21,8 +21,7 @@ import {
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const { displayed } = useContext(CartContext);
-  // console.log( currentUser );
+  const displayed = useSelector(selectCartDisplayed);
   
   return (
     <Fragment>
